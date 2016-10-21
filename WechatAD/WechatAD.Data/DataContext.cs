@@ -11,6 +11,10 @@ namespace WechatAD.Data
     {
         public DataContext() : base("DefaultConnection") { }
 
-        public DbSet<DomainModels.Category> Categorys { get; set; }
+        public DbSet<DomainModels.Member> Members { get; set; }
+
+        public DbSet<DomainModels.Advertisement> Advertisements { get; set; }
+
+        public DbSet<DomainModels.Article> Articles { get; set; }
     }
 }

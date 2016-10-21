@@ -58,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
-    <Compile Include="DomainModels\Category.cs" />
+    <Compile Include="DomainModels\Advertisement.cs" />
+    <Compile Include="DomainModels\Article.cs" />
+    <Compile Include="DomainModels\Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

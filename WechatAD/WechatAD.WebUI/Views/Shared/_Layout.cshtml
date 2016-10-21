@@ -1,45 +1,89 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta http-equiv="cache-control" content="no-cache">
+    <title>@ViewBag.Title - 微信小广告</title>
 
+    <link href="/content/mgr/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    @Styles.Render("~/content/manager/css")
+
+    <!-- 加载插件样式 -->
+    @RenderSection("styles", required: false)
+
+    @Styles.Render("~/content/manager/css/themes")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("应用程序名称", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                    <li>@Html.ActionLink("关于", "About", "Home")</li>
-                    <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
+    @Html.Action("PartialHeader", "Home")
+
+    <div id="wrapper">
+        <!-- 左侧菜单 start -->
+        <nav id="sidebar" role="navigation" class="navbar-default navbar-static-side">
+            <div class="sidebar-collapse menu-scroll">
+                <ul id="side-menu" class="nav">
+                    <li class="user-panel">
+                        <div class="thumb">
+                            <img src="~/content/mgr/images/gallery/data/head_default.jpg" class="img-circle" />
+                        </div>
+                        <div class="info">
+                            <p>@HGLAuthorize.Account.ToDescription(6)</p>
+                            <ul class="list-inline list-unstyled">
+                                <li><a href="/admin/manager/basicinfo" title="基本信息"><i class="fa fa-user"></i></a></li>
+                                <li><a href="javascript:void(0);" title="邮件通知"><i class="fa fa-envelope"></i></a></li>
+                                <li><a href="javascript:void(0);" class="js-password" title="修改密码"><i class="fa fa-cog"></i></a></li>
+                                <li><a href="javascript:void(0);" class="js-exit" title="用户退出"><i class="fa fa-sign-out"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+                    <li class="amy-menu-default">
+                        <a href="/admin/manager">
+                            <i class="fa fa-tachometer fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i>
+                            <span class="menu-title">我的工作台</span>
+                        </a>
+                    </li>
+                    <li data-cookie="article">
+                        <a href="javascript:void(0);">
+                            <i class="fa fa-laptop fa-fw">
+                                <div class="icon-bg bg-pink"></div>
+                            </i>
+                            <span class="menu-title">文章管理</span><span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li data-cookie="article-add" class="amy-menu"><a href="/article/add"><i class="fa fa-rocket"></i><span class="submenu-title">添加文章</span></a></li>
+                            <li data-cookie="article-list" class="amy-menu"><a href="/article/list"><i class="fa fa-rocket"></i><span class="submenu-title">文章列表</span></a></li>
+                        </ul>
+                    </li>
+                    <li data-cookie="ad">
+                        <a href="javascript:void(0);">
+                            <i class="fa fa-laptop fa-fw">
+                                <div class="icon-bg bg-pink"></div>
+                            </i>
+                            <span class="menu-title">广告管理</span><span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li data-cookie="ad-add" class="amy-menu"><a href="/advertisement/add"><i class="fa fa-rocket"></i><span class="submenu-title">添加广告</span></a></li>
+                            <li data-cookie="ad-list" class="amy-menu"><a href="/advertisement/list"><i class="fa fa-rocket"></i><span class="submenu-title">广告列表</span></a></li>
+                        </ul>
+                    </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
+        </nav>
+        <!-- 左侧菜单 end -->
+        <!-- 内容区域 start -->
+        <div id="page-wrapper">
+            @RenderBody()
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 应用程序</p>
-        </footer>
+        <!-- 内容区域 end -->
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Html.Action("PartialFooter", "Home")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
