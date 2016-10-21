@@ -20,5 +20,6 @@ create table article
 (
 	Id char(32) primary key,
 	MemberId char(32) not null comment '会员Id',
-	Content longtext not null comment '文章内容'
+	Content longtext not null comment '文章内容',
+	DateTime datetime not null comment '入库时间'
 ) comment '文章表';
