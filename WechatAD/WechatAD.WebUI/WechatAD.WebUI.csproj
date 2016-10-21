@@ -856,6 +856,12 @@
   <ItemGroup>
     <Content Include="Views\Advertisement\List.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Pagination.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Advertisement\Add.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

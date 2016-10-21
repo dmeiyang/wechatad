@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WechatAD.Data.DomainModels
 {
-    [Table("category")]
+    [Table("member")]
     public class Member
     {
         public string Id { get; set; }

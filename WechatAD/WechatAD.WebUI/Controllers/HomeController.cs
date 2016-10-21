@@ -11,6 +11,8 @@ namespace WechatAD.WebUI.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            HGLAuthorize.SetCookie(new HGLMember() { Id = "00000000000000000000000000000000", Account = "荒古禁地" });
+
             return View();
         }
 

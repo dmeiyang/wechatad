@@ -1,4 +1,4 @@
-﻿
+﻿@model PageList<WechatAD.Data.DomainModels.Advertisement>
 @{
     ViewBag.Title = "广告列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,4 +14,115 @@
     <div class="clearfix"></div>
 </div>
 <!-- 面包屑 end -->
+<!-- 右侧内容 start -->
+<div class="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-yellow">
+                <div class="panel-body">
+                    <div class="box jplist">
+                        <div class="jplist-panel box panel-top">
+                            <div style="float: left;">
+                                <div class="text-filter-box">
+                                    <a href="/advertisement/add" class="btn btn-green"><i class="fa fa-plus"></i>&nbsp;添加广告</a>
+                                    <a href="javascript:void(0);" class="btn btn-primary js-bulkDel"><i class="fa fa-minus"></i>&nbsp;删除广告</a>
+                                </div>
+                            </div>
+                            <div style="float: right;">
+                                <form method="get" action="/advertisement/list">
+                                    <div class="text-filter-box">
+                                        <div class="input-group">
+                                            <input type="text" name="key" value="@ViewBag.Key" class="form-control" placeholder="名称">
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-blue" type="submit">搜索</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="panel panel-yellow">
+                <div class="panel-heading">@ViewBag.Title</div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="3%">
+                                    <input type="checkbox" class="checkall" />
+                                </th>
+                                <th>名称</th>
+                                <th>素材</th>
+                                <th>素材类型</th>
+                                <th>更新时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var v in Model)
+                            {
+                                <tr data-id="@v.Id">
+
+                                    <td>
+                                        <input type="checkbox" />
+                                    </td>
+                                    <td>@v.Title</td>
+                                    <td><img src="@v.Material" style="height:100px;" /></td>
+                                    <td>@v.Type</td>
+                                    <td>@v.DateTime.ToFormatDay()</td>
+                                    <td>
+                                        <a href="/advertisement/edit/@v.Id" class="btn btn-green btn-outlined btn-square">编辑</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        @Html.Pager(Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 右侧内容 end -->
+
+@section styles{
+    <link type="text/css" rel="stylesheet" href="/Content/Mgr/vendors/jplist/html/css/jplist-custom.css">
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $('.js-bulkDel').on('click', function () {
+            var obj = $(this);
+
+            amy.confirm('确定要删除所选广告吗？', function () {
+                var ids = [];
+
+                $(".icheckbox_minimal-grey").each(function () {
+                    if ($(this).hasClass("checked")) {
+
+                        var id = $(this).parents('tr').attr('data-id');
+
+                        if (id) {
+                            ids.push(id);
+                        }
+                    }
+                });
+
+                $.post('@Url.Action("Delete", "Advertisement")', { ids: ids.join(',') }, function (res) {
+                    if (res.Flag) {
+                        amy.alert('删除广告成功！！！', function () {
+                            location.reload();
+                        })
+                    }
+                    else {
+                        amy.alert(res.Content[0][1]);
+                    }
+
+                }, 'json')
+            })
+        })
+    </script>
+}
